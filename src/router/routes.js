@@ -11,10 +11,16 @@ export default [
   {
     path: '/login',
     component: Login,
+    meta:{
+      isHide:true 
+    }
   },
   {
     path: '/register',
     component: Register,
+    meta:{
+      isHide:true 
+    },
   },
   {
     path: '/search/:keyword?',
