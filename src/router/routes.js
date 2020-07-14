@@ -23,10 +23,11 @@ export default [
     },
   },
   {
+    // path: '/search/:keyword?',
     path: '/search/:keyword?',
     component: Search,
     name:'search',
-    props:route => ({keyword:route.params.keyword,keyword1:route.query.keyword1})
+    // props:route => ({keyword:route.params.keyword,keyword1:route.query.keyword1})
     //keyword:route.params.keyword,keyword1:route.query.keyword1
   },
   {

@@ -8,21 +8,28 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import {reqCategoryList} from '@/api'
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { reqCategoryList } from "@/api";
 export default {
-  name: '',
-  components:{
+  name: "",
+  components: {
     Header,
     Footer
   },
-/*   mounted(){
+  /*   mounted(){
     reqCategoryList()
   } */
-}
+  mounted() {
+    this.getCategoryList();
+  },
+  methods: {
+    getCategoryList() {
+      this.$store.dispatch("getCategoryList");
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
-
 </style>

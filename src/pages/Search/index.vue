@@ -1,13 +1,10 @@
 <template>
-  <div>srarch<br>
-  params:{{keyword}}
-  query:{{keyword1}}</div>
+  <TypeNav></TypeNav>
 </template>
 
 <script>
 export default {
   name: 'Search',
-  props:['keyword','keyword1']
 }
 </script>
 
