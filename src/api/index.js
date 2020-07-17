@@ -17,3 +17,8 @@ export const reqCategoryList = ()=> Ajax.get('/product/getBaseCategoryList')
 export const reqBannerList = ()=> mockAjax.get('/banner')
 export const reqFloorList = ()=> mockAjax.get('/floor')
 
+
+//请求商品
+export const reqGoodsList = (searchParams)=> Ajax.post('/list',searchParams)
+
+

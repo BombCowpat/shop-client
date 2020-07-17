@@ -7,6 +7,7 @@ import SliderLoop from '@/components/sliderLoop'
 import '@/mock/mockServer'
 
 // import * as API from '@/api'
+// API.reqGoodsList({})
 
 
 Vue.config.productionTip = false
@@ -14,6 +15,9 @@ Vue.component('TypeNav',TypeNav)
 Vue.component('SliderLoop',SliderLoop)
 
 new Vue({
+  beforeCreate() {
+    Vue.prototype.$bus = this
+  },
   el:'#app',
   render: h => h(App),
   router,

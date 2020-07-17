@@ -54,7 +54,13 @@ export default {
       keyword: ""
     };
   },
+  mounted(){
+    this.$bus.$on('clearKeyword',this.clearKeyword)
+  },
   methods: {
+    clearKeyword(){
+      this.keyword = ''
+    },
     toSearch() {
     
       //   this.$router.push(`/search/${this.keyword}?keyword=${this.keyword.toUpperCase()}`)
