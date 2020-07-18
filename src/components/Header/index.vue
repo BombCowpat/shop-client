@@ -54,15 +54,14 @@ export default {
       keyword: ""
     };
   },
-  mounted(){
-    this.$bus.$on('clearKeyword',this.clearKeyword)
+  mounted() {
+    this.$bus.$on("clearKeyword", this.clearKeyword);
   },
   methods: {
-    clearKeyword(){
-      this.keyword = ''
+    clearKeyword() {
+      this.keyword = "";
     },
     toSearch() {
-    
       //   this.$router.push(`/search/${this.keyword}?keyword=${this.keyword.toUpperCase()}`)
       /*         this.$router.push({
             name:'search',
@@ -79,11 +78,15 @@ export default {
           keyword: this.keyword || undefined
         }
       };
-      let {query} = this.$route
-      if(query){
-          location.query = query 
+      let { query } = this.$route;
+      if (query) {
+        location.query = query;
       }
-      this.$router.push(location);
+      if (this.$route.path !== "/home") {
+        this.$router.replace(location);
+      } else {
+        this.$router.push(location);
+      }
     }
   }
 };

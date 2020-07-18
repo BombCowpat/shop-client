@@ -22,3 +22,6 @@ export const reqFloorList = ()=> mockAjax.get('/floor')
 export const reqGoodsList = (searchParams)=> Ajax.post('/list',searchParams)
 
 
+//商品详情数据请求 /api/item/{skuId}
+export const reqGoodsDetailInfo = (skuId) => Ajax.get(`/item/${skuId}`) 
+

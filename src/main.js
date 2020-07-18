@@ -5,6 +5,7 @@ import TypeNav from '@/components/TypeNav'
 import store from '@/store'
 import SliderLoop from '@/components/sliderLoop'
 import '@/mock/mockServer'
+import Pagination from '@/components/Pagination'
 
 // import * as API from '@/api'
 // API.reqGoodsList({})
@@ -13,6 +14,7 @@ import '@/mock/mockServer'
 Vue.config.productionTip = false
 Vue.component('TypeNav',TypeNav)
 Vue.component('SliderLoop',SliderLoop)
+Vue.component('Pagination',Pagination)
 
 new Vue({
   beforeCreate() {

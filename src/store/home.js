@@ -23,7 +23,7 @@ const actions = {
   async getCategoryList({ commit }) {
     try {
       const result = await reqCategoryList();
-      if (result.code) {
+      if (result.code === 200) {
         commit("RECEIVECATEGORYLIST", result.data);
       }
     } catch (error) {
@@ -33,7 +33,7 @@ const actions = {
   async getBannerList({ commit }) {
     try {
       const result = await reqBannerList();
-      if (result.code) {
+      if (result.code === 200) {
         commit("RECIEVEBANNERLIST", result.data);
       }
     } catch (error) {
@@ -43,7 +43,7 @@ const actions = {
   async getFloorList({ commit }) {
     try {
       const result = await reqFloorList();
-      if (result.code) {
+      if (result.code === 200) {
         commit("RECIEVEFLOORLIST", result.data);
       }
     } catch (error) {
