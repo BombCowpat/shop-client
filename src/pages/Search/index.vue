@@ -161,7 +161,7 @@
             :currentPageNum="searchParams.pageNo"
             :pageSize="searchParams.pageSize"
             :total="goodsListInfo.total"
-            :continueNum="5"
+            :continueNum=5
             @changePage="changePage"
           ></Pagination>
         </div>

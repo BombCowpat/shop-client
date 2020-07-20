@@ -23,28 +23,38 @@
 ### -----------------------------------------
 
 ### day06 
-1. 搜索页多次跳转后直接返回home页 修改之前所有的路由跳转 如果是从主页跳转到search页的用push，如果是search页跳转到search页的改成repl
-2. 商品列表排序 sortFlag 1 or 2      sortType asc or desc 
-3. 从searchParams中分离出计算属性sortFlag sortType
-4. 动态加载排序项中的样式和箭头 下载图标字体，编辑类名去掉- 
-5. 给排序项添加点击事件 sortGoods 接收当前的sortFlag 和 sortType 
-6. 定义sortGoods  函数 注意参数为字符串 如果 sortFlag和原来相同 修改sortType 为反向排序 如果不同修改为当前sortFlag 并且修改sortType为默认desc  然后将配置项赋值给searchParams中对应排序参数 重新发送商品请求   
+1. 搜索页多次跳转后直接返回home页（如不修改，push会记录之前的路由跳转历史，返回时会返回到上一次路由地址，点击品牌和属性搜索不会修改路由，只是修改searchParams 参数，所以不会有路由记录） 修改之前所有的路由跳转， TypeNav 和 Header 以及 删除面包屑中keyword category 参数 都是通过修改路由来触发watch 中对路由的监视 然后重新发送请求的。TypeNav 和 Header  如果是从主页跳转到search页的用push，如果是search页跳转到search页的改成replace  面包屑中的路由修改则只能是 from search to search 所以直接改为replace即可
+2. ----------------------------- 
+3. 商品列表排序 sortFlag 1 or 2      sortType asc or desc 
+4. 从searchParams中分离出 计算属性sortFlag sortType
+5. 动态加载排序项中的样式和箭头(v-if 控制箭头是否显示) 下载图标字体，编辑类名去掉- 
+6. 给排序项添加点击事件 sortGoods 接收当前的sortFlag 和 sortType 
+7. 定义sortGoods  函数 注意参数为字符串 如果 sortFlag和原来相同 修改sortType 为反向排序 如果不同修改为当前sortFlag 并且修改sortType为默认desc  然后将配置项赋值给searchParams中对应排序参数 重新发送商品请求   
 ### -----------------------------------------
 7. 自定义分页组件 
-8. 课件中获取静态组件 注册 添加到页面中
+8. 课件中获取静态组件 定义Pagination  注册 添加到页面中
 9.  动态组件逻辑实现 
-10. 外部接收 当前页码 每页数量 总数 连续页码数量（奇数） 
-11. 分页组件内部需要计算的数据 总页数 连续页码的起始和结束 
+10. 外部接收 当前页码pageNo 每页数量pageSize 总数goodsListInfo.total 连续页码数量（奇数,自定义 5） 
+11. 计算分页组件内部需要计算的数据 总页数 连续页码的起始和结束 
 12. 在分页中计算逻辑 
 13. 计算连续页码的起始和结束 
-14. 判断总页码是否比连续页码还小 
-15. 
+14. 当前页码 +/- 连续页码/2向下取整
+15. 4种情况  总页数小于连续页数-正常-起始页码小于1-结束页码大于最大页码 后面两种修正页码即可 start-end 同时加上或者减去偏差的页码
+16. 动态显示页码 
+17. 遍历显示start- end v-for v-if 配合使用 
 
-### 商品详情页 
-1. 详情页静态路由组件 
+### 商品详情页 day07
+1. 详情页静态路由组件 添加组件到路由 添加声明式路由导航到search页的商品图片 添加滚动配置
 2. api 数据接口函数 
 3. vuex 管理详情数据
-4. 动态加载页面数据  
+4. detail组件获取数据
+5. 动态加载页面数据 getters 返回数据时为保证不报错，可以|| 一个{} 或[]  v-for 内外循环不能用到相同的键值  
+6. 放大镜区域图片加载 完成底部图片列表轮播效果 完成放大镜效果
+7. 商品属性选择交互 
+8. 商品数量增减 
+9. 加入购物车功能 发送（api，vuex）加入购物车请求 - 返回成功或失败结果 成功返回成功的值（promise对象）失败返回失败的promise对象 组件内dispatch的函数返回值即为dispatch的action的返回值 成功则跳转到加入购物车成功组件 顺便 将商品信息存到 session Storage 中  路由传递skuNum 然后在加入购物车成功组件中加载数据 字体（css,font）文件引入   跳转回详情页路由             
+
+
 
 
 

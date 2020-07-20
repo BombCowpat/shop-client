@@ -16,9 +16,9 @@
         <!-- 左侧放大镜区域 -->
         <div class="previewWrap">
           <!--放大镜效果-->
-          <Zoom />
+          <Zoom :imgList="imgList" />
           <!-- 小图列表 -->
-          <ImageList />
+          <ImageList :imgList="imgList" />
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
@@ -69,7 +69,8 @@
                 <dt class="title">{{spuSaleAttr.saleAttrName}}</dt>
                 <dd
                   changepirce="0"
-                  class="active"
+                  :class="{active:spuSaleAttrValue.isChecked === '1'}"
+                  @click="changeIsCheck(spuSaleAttr.spuSaleAttrValueList,index)"
                   v-for="(spuSaleAttrValue, index) in spuSaleAttr.spuSaleAttrValueList"
                   :key="index"
                 >{{spuSaleAttrValue.saleAttrValueName}}</dd>
@@ -97,12 +98,12 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="skuNum"/>
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a href="javascript:" class="mins" @click="skuNum<=1?1:skuNum--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a href="javascript:" @click="toSuccess">加入购物车</a>
               </div>
             </div>
           </div>
@@ -350,13 +351,37 @@ export default {
   mounted() {
     this.getGoodsDetailInfo();
   },
+  data(){
+    return {
+      skuNum:1
+    }
+  },
   methods: {
+    async toSuccess(){
+      //async 返回promise 
+      try {        
+        const result = await this.$store.dispatch('addOrUpdateShopCart',{skuId:this.skuInfo.id,skuNum:this.skuNum})
+        alert(result)
+        sessionStorage.setItem('SKUINFO_KEY',JSON.stringify(this.skuInfo))
+        this.$router.push(`/addCartSuccess?skuNum=${this.skuNum}`)
+      } catch (error) {
+        alert(error.message)
+      }
+
+
+    },
     getGoodsDetailInfo() {
       this.$store.dispatch("getGoodsDetailInfo", this.$route.params.goodsId);
+    },
+    changeIsCheck(spuSaleAttrValueList,index){
+      spuSaleAttrValueList.forEach(item => {
+        item.isChecked = '0'
+      })
+      spuSaleAttrValueList[index].isChecked = '1'
     }
   },
   computed: {
-    ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList"])
+    ...mapGetters(["categoryView", "skuInfo", "spuSaleAttrList","imgList"])
   },
   components: {
     ImageList,

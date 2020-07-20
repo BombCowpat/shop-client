@@ -19,8 +19,8 @@ import Swiper from "swiper";
 import "swiper/css/swiper.min.css";
 export default {
   name: "SliderLoop",
-  props:['bannerList'],
-    watch: {
+  props: ["bannerList"],
+  watch: {
     //数据变化时new swiper
     bannerList: {
       handler() {
@@ -28,7 +28,7 @@ export default {
           var mySwiper = new Swiper(this.$refs.banner, {
             // direction: "vertical", // 垂直切换选项
             loop: true, // 循环模式选项
-            autoplay:true,
+            autoplay: true,
             // 如果需要分页器
             pagination: {
               el: ".swiper-pagination"
@@ -42,7 +42,7 @@ export default {
           });
         });
       },
-      immediate:true
+      immediate: true
     }
   }
 };
