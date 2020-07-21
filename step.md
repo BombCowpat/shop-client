@@ -48,11 +48,26 @@
 2. api 数据接口函数 
 3. vuex 管理详情数据
 4. detail组件获取数据
-5. 动态加载页面数据 getters 返回数据时为保证不报错，可以|| 一个{} 或[]  v-for 内外循环不能用到相同的键值  
-6. 放大镜区域图片加载 完成底部图片列表轮播效果 完成放大镜效果
-7. 商品属性选择交互 
-8. 商品数量增减 
-9. 加入购物车功能 发送（api，vuex）加入购物车请求 - 返回成功或失败结果 成功返回成功的值（promise对象）失败返回失败的promise对象 组件内dispatch的函数返回值即为dispatch的action的返回值 成功则跳转到加入购物车成功组件 顺便 将商品信息存到 session Storage 中  路由传递skuNum 然后在加入购物车成功组件中加载数据 字体（css,font）文件引入   跳转回详情页路由             
+5. 动态加载页面数据 getters 返回数据时为保证不报错，可以|| 一个{} 或[] `:src="(imgList[imgIndex]?imgList[imgIndex]:{}).imgUrl"`  a.b.c 一般到第三级时会报错(可以在getters computed内先处理好) `(this.imgList[this.imgIndex] || {}).imgUrl`   v-for 内外循环不能用到相同的键值  
+6. 放大镜区域图片加载 完成底部图片列表（图片均来自父组件Detail） 点击加边框 轮播效果(swiper 插件 slidesPerView : 5,  //根据slide的宽度自动调整展示数量。slidesPerGroup : 5, //在carousel mode下定义slides的数量多少为一组) 完成放大镜效果--鼠标在元素内位置，mask 偏移量为鼠标偏移量减去mask大小一半 大图往相反方向移动两倍距离 
+7. 商品属性选择交互 排他 事件传入当前列表和当前index 注意isChecked 属性为字符串 
+8. 商品数量增减 v-model 不能减小到小于0 
+9. 加入购物车功能 发送（api -> vuex）加入购物车请求 - 返回成功或失败结果 成功返回成功的值（promise对象）失败返回失败的promise对象 组件内await 后是失败的promise是会报错 然后trycatch alert（error）  导入加入购物车成功组件 添加路由  组件内dispatch的函数返回值即为dispatch的action的返回值 成功则跳转到加入购物车成功组件 顺便 将商品信息存到 sessionStorage 中（重复添加会覆盖原来的）  路由传递?skuNum=${this.skuNum} 然后在加入购物车成功组件中加载数据 字体（css,font）文件引入   跳转回详情页路由 `/detail/${this.skuInfo.id}`
+10. 点击加入购物车 - 发生请求 - 成功 - 跳转到加入购物车成功组件 -失败 alert 加入购物车失败  
+
+### day08
+
+1.  购物车路由组件实现 api-vuex-组件内发请求   
+2.  usertempid（字符串）添加购物车时使用零时id （后端能有标识的存储商品信息） 同时将usertempid存储到本地的localstorage  ， 在后面的购物车列表请求中带上usertempid 就能找到购物车列表信息 
+3.  vuex 创建user.js 管理usertempid  /src下创建utils文件夹 工具函数 创建获取usertempid工具（优先本地获取，获取不到通过uuid生成） 
+4.  导入store对象到ajax封装文件 在请求拦截器config 的 header中添加 usertempId 
+5.  重新加入购物车，在购物车组件发请求 就能拿到数据  
+6.  动态展示数据 
+7.  向后台发请求 改变列表数据 数量 单项选择 全选  删除 删除所有 
+8.  改变商品数量 click change 事件 中 传入当前goods changeNum  如果skuNum - changeNum <1,changeNum=1-skuNum 重新发送更新商品请求addOrUpdateShopCart  然后发送更新商品列表请求   (changeNum  商品数量的改变量) 
+9.  改变商品选中状态 单个改变 点击发送请求直接改变 全部改变 promise.all 改变后要重新发送请求更新页面数据 
+10.  
+
 
 
 

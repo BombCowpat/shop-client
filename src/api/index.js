@@ -30,7 +30,9 @@ export const reqGoodsDetailInfo = (skuId) => Ajax.get(`/item/${skuId}`)
 
 export const reqAddOrUpdateShopCart = (skuId,skuNum) => Ajax.post(`/cart/addToCart/${ skuId }/${ skuNum }`)
 
+// shopcartList /cart/cartList
+export const reqShopCartList = () => Ajax.get('/cart/cartList')
 
-
-
+// 请求修改购物车选中状态 /cart/checkCart/{skuID}/{isChecked}
+export const reqUpdateIsChecked = (skuId,isChecked) => Ajax.get(`/cart/checkCart/${skuId}/${isChecked}`)
 

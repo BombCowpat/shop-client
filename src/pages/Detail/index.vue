@@ -98,7 +98,7 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" v-model="skuNum"/>
+                <input autocomplete="off" class="itxt" v-model="skuNum" @change="$event.target.value>1?skuNum=$event.target.value:skuNum=1"/>
                 <a href="javascript:" class="plus" @click="skuNum++">+</a>
                 <a href="javascript:" class="mins" @click="skuNum<=1?1:skuNum--">-</a>
               </div>
