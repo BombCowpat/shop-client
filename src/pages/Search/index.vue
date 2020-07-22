@@ -90,7 +90,7 @@
                     </router-link>
                     <!-- <a href="item.html" target="_blank">
                       <img :src="goods.defaultImg" />
-                    </a> -->
+                    </a>-->
                   </div>
                   <div class="price">
                     <strong>
@@ -99,12 +99,17 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a
+                    <!-- <a
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
                       v-html="goods.title"
-                    ></a>
+                    ></a>-->
+                    <router-link
+                      :to="`/details/${goods.id}`"
+                      title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
+                      v-html="goods.title"
+                    ></router-link>
                   </div>
                   <div class="commit">
                     <i class="command">
@@ -114,8 +119,8 @@
                   </div>
                   <div class="operate">
                     <a
-                      href="success-cart.html"
-                      target="_blank"
+                      href="javascript:;"
+                      @click="toSuccess(goods)"
                       class="sui-btn btn-bordered btn-danger"
                     >加入购物车</a>
                     <a href="javascript:void(0);" class="sui-btn btn-bordered">收藏</a>
@@ -161,7 +166,7 @@
             :currentPageNum="searchParams.pageNo"
             :pageSize="searchParams.pageSize"
             :total="goodsListInfo.total"
-            :continueNum=5
+            :continueNum="5"
             @changePage="changePage"
           ></Pagination>
         </div>
@@ -204,6 +209,20 @@ export default {
     this.getGoodsListInfo();
   },
   methods: {
+    async toSuccess(goods) {
+      //async 返回promise
+      try {
+        const result = await this.$store.dispatch("addOrUpdateShopCart", {
+          skuId: goods.id,
+          skuNum: 1
+        });
+        alert(result);
+        sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(goods));
+        this.$router.push(`/addCartSuccess?skuNum=1`);
+      } catch (error) {
+        alert(error.message);
+      }
+    },
     getGoodsListInfo() {
       this.$store.dispatch("getGoodsListInfo", this.searchParams);
     },

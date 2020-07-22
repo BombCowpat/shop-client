@@ -5,7 +5,7 @@
       <div class="goods">
         <div class="left-good">
           <div class="left-pic">
-            <img :src="skuInfo.skuDefaultImg">
+            <img :src="skuInfo.skuDefaultImg || skuInfo.defaultImg">
           </div>
           <div class="right-info">
             <p class="title">{{skuInfo.skuName}}</p>

@@ -6,7 +6,15 @@
       <div class="container">
         <div class="loginList">
           <p>尚品汇欢迎您！</p>
-          <p>
+          <!-- 登录成功状态· -->
+          <p v-if="userInfo.name">
+            <!-- <router-link to="/login">登录</router-link> -->
+            <a href="javascript:;">{{userInfo.name}}</a>
+            <a href="javascript:;" class="register" @click="logout">退出</a>
+            <!-- <router-link to="/register" class="register">免费注册</router-link> -->
+          </p>
+          <!-- 未登录状态 -->
+          <p v-else>
             <span>请</span>
             <router-link to="/login">登录</router-link>
             <!-- <a href="###">登录</a> -->
@@ -16,7 +24,8 @@
         </div>
         <div class="typeList">
           <a href="###">我的订单</a>
-          <a href="###">我的购物车</a>
+          <!-- <a href="###">我的购物车</a> -->
+          <router-link to="/shopcart">我的购物车</router-link>
           <a href="###">我的尚品汇</a>
           <a href="###">尚品汇会员</a>
           <a href="###">企业采购</a>
@@ -47,6 +56,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "Header",
   data() {
@@ -87,7 +97,21 @@ export default {
       } else {
         this.$router.push(location);
       }
+    },
+    async logout(){
+      try {
+        await this.$store.dispatch('userLogout')
+        alert('退出登录成功，自动跳转到首页')
+        this.$router.push('/home')
+      } catch (error) {
+        alert(error)
+      }
     }
+  },
+  computed:{
+    ...mapState({
+      userInfo:state => state.user.userInfo
+    })
   }
 };
 </script>
