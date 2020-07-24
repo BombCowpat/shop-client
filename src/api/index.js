@@ -50,3 +50,33 @@ export const reqLogin = (userInfo) => Ajax.post('/user/passport/login',userInfo)
 
 // logout   /user/passport/logout 
 export const reqlogout = () => Ajax.get('/user/passport/logout')
+
+
+// reqTradeInfo  /order/auth/trade   /order/auth/trade
+export const reqTradeInfo = ()=> Ajax.get('/order/auth/trade')
+
+
+// reqSubmitOrder    /api/order/auth/submitOrder?tradeNo={tradeNo}   post
+
+export const reqSubmitOrder = (tradeNo,tradeInfo) => Ajax.post(`/order/auth/submitOrder?tradeNo=${tradeNo}`,tradeInfo)
+
+// reqOrderInfo    /payment/weixin/createNative/{orderId}
+
+export const reqOrderInfo = orderId => Ajax.get(`/payment/weixin/createNative/${orderId}`)
+
+
+// reqOrderStatus
+
+export const reqOrderStatus = (orderId) => Ajax.get(`/payment/weixin/queryPayStatus/${orderId}`)
+
+
+
+
+
+
+
+
+
+
+
+
