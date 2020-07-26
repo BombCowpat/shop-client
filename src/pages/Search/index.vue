@@ -86,7 +86,8 @@
                 <div class="list-wrap">
                   <div class="p-img">
                     <router-link :to="`/details/${goods.id}`">
-                      <img :src="goods.defaultImg" />
+                      <!-- <img :src="goods.defaultImg" /> -->
+                      <img v-lazy="goods.defaultImg" />
                     </router-link>
                     <!-- <a href="item.html" target="_blank">
                       <img :src="goods.defaultImg" />
@@ -183,7 +184,7 @@ export default {
   name: "Search",
 
   components: {
-    SearchSelector
+    SearchSelector,
   },
   data() {
     return {
@@ -198,8 +199,8 @@ export default {
         pageNo: 1,
         pageSize: 4,
         props: [],
-        trademark: ""
-      }
+        trademark: "",
+      },
     };
   },
   beforeMount() {
@@ -214,7 +215,7 @@ export default {
       try {
         const result = await this.$store.dispatch("addOrUpdateShopCart", {
           skuId: goods.id,
-          skuNum: 1
+          skuNum: 1,
         });
         alert(result);
         sessionStorage.setItem("SKUINFO_KEY", JSON.stringify(goods));
@@ -232,7 +233,7 @@ export default {
         category1Id,
         category2Id,
         category3Id,
-        categoryName
+        categoryName,
       } = this.$route.query;
       let searchParams = {
         ...this.searchParams,
@@ -240,9 +241,9 @@ export default {
         category1Id,
         category2Id,
         category3Id,
-        categoryName
+        categoryName,
       };
-      Object.keys(searchParams).forEach(item => {
+      Object.keys(searchParams).forEach((item) => {
         if (!searchParams[item]) {
           delete searchParams[item];
         }
@@ -302,13 +303,13 @@ export default {
     changePage(num) {
       this.searchParams.pageNo = num;
       this.getGoodsListInfo();
-    }
+    },
   },
   watch: {
     $route() {
       this.handlerSearchParams();
       this.getGoodsListInfo();
-    }
+    },
   },
   computed: {
     ...mapGetters(["goodsList"]),
@@ -319,9 +320,9 @@ export default {
       return this.searchParams.order.split(":")[1];
     },
     ...mapState({
-      goodsListInfo: state => state.search.goodsListInfo
-    })
-  }
+      goodsListInfo: (state) => state.search.goodsListInfo,
+    }),
+  },
 };
 </script>
 

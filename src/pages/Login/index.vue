@@ -17,12 +17,28 @@
             <form>
               <div class="input-text clearFix">
                 <span></span>
-                <input type="text" placeholder="邮箱/用户名/手机号" v-model="mobile"/>
+                <input
+                  type="text"
+                  placeholder="邮箱/用户名/手机号"
+                  v-model="mobile"
+                  name="phone"
+                  v-validate="{required:true,regex:/^1\d{10}$/}"
+                  :class="{invalid:errors.has('phone')}"
+                  autocomplete="off"
+                />
+                <i>{{errors.first('phone')}}</i>
               </div>
               <div class="input-text clearFix">
                 <span class="pwd"></span>
-                <input type="text" placeholder="请输入密码"  v-model="password"/>
+                <input type="text" 
+                placeholder="请输入密码" 
+                v-model="password" 
+                name="password"
+                v-validate="{required:true,regex:/^\w{6,20}$/}"
+                :class="{invalid: errors.has('password')}"
+                autocomplete="off"/>
               </div>
+                <i>{{errors.first('password')}}</i>
               <div class="setting clearFix">
                 <label class="checkbox inline">
                   <input name="m1" type="checkbox" value="2" checked />
@@ -30,7 +46,7 @@
                 </label>
                 <span class="forget">忘记密码？</span>
               </div>
-              <button class="btn"  @click.prevent="login">登&nbsp;&nbsp;录</button>
+              <button class="btn" @click.prevent="login">登&nbsp;&nbsp;录</button>
             </form>
 
             <div class="call clearFix">
@@ -78,24 +94,32 @@ export default {
   data() {
     return {
       mobile: "",
-      password: ""
+      password: "",
     };
   },
   methods: {
     async login() {
+      const success = await this.$validator.validateAll()
+      if(success){
+
       let { mobile, password } = this;
-      if (mobile && password) {
         let userInfo = { mobile, password };
         try {
-          await this.$store.dispatch("userLogin",userInfo);          
-          alert('login ok jump to home')
-          this.$router.push('/home')
+          await this.$store.dispatch("userLogin", userInfo);
+          // alert('login ok jump to home')
+          let redirectPath = this.$route.query.redirect;
+          if (redirectPath) {
+            //代表来自导航守卫
+            this.$router.push(redirectPath);
+          } else {
+            this.$router.push("/home");
+          }
         } catch (error) {
-          alert(error.message)
+          alert(error.message);
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -195,6 +219,10 @@ export default {
 
               border-radius: 0 2px 2px 0;
               outline: none;
+              &.invalid {
+                color: #e1251b;
+                border-color: #e1251b;
+              }
             }
           }
 

@@ -70,7 +70,8 @@ export const reqOrderInfo = orderId => Ajax.get(`/payment/weixin/createNative/${
 export const reqOrderStatus = (orderId) => Ajax.get(`/payment/weixin/queryPayStatus/${orderId}`)
 
 
-
+// reqMyOrder                 /order/auth/{page}/{limit}
+export const reqMyOrder = (page,limit) => Ajax.get(`/order/auth/${page}/${limit}`)
 
 
 

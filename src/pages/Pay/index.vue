@@ -182,7 +182,7 @@ export default {
         this.timer = setInterval(async () => {
           const result = await this.$API.reqOrderStatus(this.orderInfo.orderId);
          
-          if (result.code === 200) {
+          if (result.code !== 200) {
             this.status = 200;
             clearInterval(this.timer);
             this.timer = null;
